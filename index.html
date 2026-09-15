@@ -1,326 +1,562 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jasmine Steffi A | Biotechnology & Cellular Immunology</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jasmine Steffi A | Academic Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-primary: #fcfcfc;
+      --bg-sidebar: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border-color: #e2e8f0;
+      --badge-bg: #eff6ff;
+      --badge-text: #1d4ed8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    /* Left Sidebar */
+    .sidebar {
+      width: 320px;
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      padding: 48px 32px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      overflow-y: auto;
+    }
+
+    .profile-photo {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffffff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .profile-name {
+      font-family: 'Merriweather', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .profile-title {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .sidebar-contact {
+      width: 100%;
+      margin: 16px 0 24px;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .sidebar-contact div {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      color: var(--text-muted);
+      word-break: break-word;
+    }
+
+    .sidebar-contact i {
+      width: 20px;
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    .sidebar-nav {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+      text-align: left;
+    }
+
+    .sidebar-nav a {
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar-nav a:hover {
+      background-color: var(--border-color);
+      text-decoration: none;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      padding: 56px 48px;
+      max-width: 880px;
+    }
+
+    section {
+      margin-bottom: 56px;
+      scroll-margin-top: 30px;
+    }
+
+    .section-title {
+      font-family: 'Merriweather', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-main);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background-color: var(--accent);
+    }
+
+    .lead-text {
+      font-size: 1.05rem;
+      color: var(--text-main);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* Cards & Timeline */
+    .item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 18px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .item-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .item-role {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    .item-time {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .item-sub {
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .item-list {
+      padding-left: 20px;
+      font-size: 0.92rem;
+      color: var(--text-main);
+    }
+
+    .item-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Skills Badges */
+    .skill-category {
+      margin-bottom: 20px;
+    }
+
+    .skill-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background-color: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: 1px solid #dbeafe;
+    }
+
+    /* Publications */
+    .pub-entry {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .pub-entry:last-child {
+      border-bottom: none;
+    }
+
+    .pub-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+      margin-bottom: 4px;
+    }
+
+    .pub-meta {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .gallery-caption {
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      background: #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 32px 20px;
+      }
+      .main-content {
+        padding: 32px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- HERO SECTION -->
-  <header class="hero-container">
-    <div class="banner-wrapper">
-      <img src="assets/banner.jpg" alt="Banner Landscape" class="banner-img" />
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <img src="profile.jpeg" alt="Jasmine Steffi A" class="profile-photo">
+    <h1 class="profile-name">Jasmine Steffi A</h1>
+    <p class="profile-title">Biotechnology Postgraduate | Cellular Immunology & Biomaterials</p>
+
+    <div class="sidebar-contact">
+      <div><i class="fa-solid fa-location-dot"></i> Tamil Nadu, India</div>
+      <div><i class="fa-solid fa-envelope"></i> <a href="mailto:jasminesteffi29@gmail.com">jasminesteffi29@gmail.com</a></div>
+      <div><i class="fa-solid fa-phone"></i> +91 6380690487</div>
     </div>
-    <div class="profile-card">
-      <div class="avatar-wrapper">
-        <img src="assets/profile.jpg" alt="Jasmine Steffi A" class="avatar-img" />
-        <span class="status-indicator" title="Available for PhD / Research"></span>
-      </div>
-      <div class="profile-info">
-        <div class="profile-title">
-          <h1>Jasmine Steffi A</h1>
-          <p class="role-badge">M.Tech in Biotechnology · First-Class Distinction</p>
-        </div>
-        <div class="meta-row">
-          <span class="location">📍 Tamil Nadu, India</span>
-          <a href="mailto:jasminesteffi29@gmail.com" class="chip-link">jasminesteffi29@gmail.com</a>
-          <span class="chip-link">(+91) 6380690487</span>
-        </div>
-        <p class="bio-summary">
-          Biotechnology postgraduate with specialized wet-lab training in cellular immunology, mammalian macrophage assays, and biomaterial-based targeted therapeutics. Driven to engineer next-generation cancer immunotherapies.
-        </p>
-      </div>
-    </div>
-  </header>
 
-  <!-- FEATURED HIGHLIGHTS CAROUSEL -->
-  <section class="section carousel-section">
-    <div class="section-header">
-      <span class="eyebrow">Visual Highlights</span>
-      <h2>Research, Wet-Lab Work & Scientific Outreach</h2>
-    </div>
-    <div class="carousel-container">
-      <!-- Card 1: Video -->
-      <div class="carousel-card">
-        <div class="media-frame">
-          <video src="assets/lab_video.mp4" autoplay loop muted playsinline></video>
-        </div>
-        <div class="card-details">
-          <span class="tag-year">2026</span>
-          <h4>Mammalian Cell Culture & Cleanroom Operations</h4>
-          <p>Aseptic biosafety operations, subculturing, and preparation for macrophage functional assays.</p>
-          <div class="pill-group">
-            <span>RAW 264.7</span><span>Aseptic Prep</span><span>Cellular Assays</span>
-          </div>
-        </div>
-      </div>
+    <nav class="sidebar-nav">
+      <a href="#about"><i class="fa-solid fa-user fa-fw"></i> About</a>
+      <a href="#experience"><i class="fa-solid fa-flask-vial fa-fw"></i> Experience</a>
+      <a href="#education"><i class="fa-solid fa-graduation-cap fa-fw"></i> Education</a>
+      <a href="#projects"><i class="fa-solid fa-diagram-project fa-fw"></i> Research Projects</a>
+      <a href="#publications"><i class="fa-solid fa-book-open fa-fw"></i> Publications</a>
+      <a href="#skills"><i class="fa-solid fa-microscope fa-fw"></i> Competencies</a>
+      <a href="#gallery"><i class="fa-solid fa-camera fa-fw"></i> Photo Gallery</a>
+    </nav>
+  </aside>
 
-      <!-- Card 2: Bench Work -->
-      <div class="carousel-card">
-        <div class="media-frame">
-          <img src="assets/wetlab_bench.jpg" alt="Aseptic Hood Work" />
-        </div>
-        <div class="card-details">
-          <span class="tag-year">2025</span>
-          <h4>Microbial & Nanoparticle Assays</h4>
-          <p>Laminar flow manipulation for anti-inflammatory assays and nanoparticle-biofilm interactions.</p>
-          <div class="pill-group">
-            <span>Biosafety Cabinet</span><span>Nanotechnology</span><span>Assays</span>
-          </div>
-        </div>
-      </div>
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- About Section -->
+    <section id="about">
+      <h2 class="section-title">Profile</h2>
+      <p class="lead-text">
+        Biotechnology postgraduate with specialized experimental training in cellular immunology, mammalian cell-based functional assays, and targeted therapeutics[cite: 1]. Proven wet-lab track record in quantifying immunomodulatory responses, evaluating expression, and conducting research in international laboratories[cite: 1]. 
+      </p>
+      <p class="lead-text">
+        Highly motivated to investigate immune and biomaterial interactions to engineer next-generation translational platforms for cancer immunotherapy[cite: 1].
+      </p>
+    </section>
 
-      <!-- Card 3: Symposium -->
-      <div class="carousel-card">
-        <div class="media-frame">
-          <img src="assets/cscr_symposium.jpg" alt="Cell and Gene Therapy Symposium" />
+    <!-- International Experience -->
+    <section id="experience">
+      <h2 class="section-title">Research Experience</h2>
+      <div class="item-card">
+        <div class="item-header">
+          <span class="item-role">Student Exchange Intern</span>
+          <span class="item-time">Jul 2025 – Sep 2025</span>
         </div>
-        <div class="card-details">
-          <span class="tag-year">2025</span>
-          <h4>10th Annual Cell & Gene Therapy Symposium</h4>
-          <p>Centre for Stem Cell Research (CMC Vellore / BRIC-inStem) attending translational medicine tracks.</p>
-          <div class="pill-group">
-            <span>Stem Cells</span><span>Gene Therapy</span><span>Conferences</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT & SKILLS -->
-  <section class="section">
-    <div class="section-header">
-      <span class="eyebrow">Technical Profile</span>
-      <h2>Core Experimental Competencies</h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-category">
-        <h3>Cell Culture & In Vitro Assays</h3>
-        <div class="tags-cloud">
-          <span>RAW 264.7 Macrophage Lines</span>
-          <span>Cancer Cell Models</span>
-          <span>Aseptic Handling</span>
-          <span>Cryopreservation</span>
-          <span>MTT & Trypan Blue Assays</span>
-          <span>Immunomodulatory Screening</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3>Molecular Biology & Analytical Platforms</h3>
-        <div class="tags-cloud">
-          <span>Genomic DNA/RNA Isolation</span>
-          <span>RT-qPCR Primer Design</span>
-          <span>SDS-PAGE & Western Blot</span>
-          <span>Microencapsulation</span>
-          <span>GC-MS Profiling</span>
-          <span>UV-Vis & FTIR</span>
-          <span>Dynamic Light Scattering (DLS)</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3>Informatics & Design</h3>
-        <div class="tags-cloud">
-          <span>NCBI BLAST</span>
-          <span>Molecular Pathway Mapping</span>
-          <span>GraphPad Prism</span>
-          <span>BioRender Illustration</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPANDABLE RESEARCH PROJECTS -->
-  <section class="section">
-    <div class="section-header">
-      <span class="eyebrow">Key Investigations</span>
-      <h2>Research Projects</h2>
-    </div>
-    <div class="projects-list">
-      
-      <div class="expand-card">
-        <div class="expand-header" onclick="toggleCard(this)">
-          <div>
-            <span class="card-kicker">M.Tech Thesis</span>
-            <h4>Biosynthesis of Nanoparticles & Anti-Inflammatory Screening in Mammalian Macrophages</h4>
-          </div>
-          <button class="expand-btn">Expand</button>
-        </div>
-        <div class="expand-body">
-          <p>Investigated immunomodulatory properties of biosynthesized therapeutic formulations using in vitro RAW 264.7 macrophage models.</p>
-          <ul>
-            <li>Quantitative cellular assays evaluating protection and inflammation suppression.</li>
-            <li>Coordinated GC-MS metabolite profiling with SITRA to isolate chemical constituents.</li>
-            <li>Evaluated reactive oxygen species (ROS) and cytokine modulations.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="expand-card">
-        <div class="expand-header" onclick="toggleCard(this)">
-          <div>
-            <span class="card-kicker">Cancer Biology</span>
-            <h4>Non-Canonical Functions of Telomerase in Mitochondria</h4>
-          </div>
-          <button class="expand-btn">Expand</button>
-        </div>
-        <div class="expand-body">
-          <p>Analyzed mitochondrial stress response and mitophagy using mitoKeima assays in U-2 OS osteosarcoma cell lines.</p>
-          <ul>
-            <li>Investigated extra-telomeric protective roles of TERT in mitochondrial maintenance.</li>
-            <li>Assessed metabolic resilience in cancer phenotypes during oxidative stress.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="expand-card">
-        <div class="expand-header" onclick="toggleCard(this)">
-          <div>
-            <span class="card-kicker">UCT Prague Exchange</span>
-            <h4>Alliin-Alliinase Microparticles Against Escherichia coli Biofilms</h4>
-          </div>
-          <button class="expand-btn">Expand</button>
-        </div>
-        <div class="expand-body">
-          <p>Synthesized spray-dried microparticle formulations facilitating controlled in situ generation of allicin as a biofilm disruptive agent.</p>
-          <ul>
-            <li>Engineered microencapsulation for enzyme stability and sustained release.</li>
-            <li>Conducted quantitative bacterial biofilm eradication protocols.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- TIMELINE: EXPERIENCE & EDUCATION -->
-  <section class="section">
-    <div class="two-col-grid">
-      <div>
-        <div class="section-header">
-          <span class="eyebrow">Trajectory</span>
-          <h2>Experience</h2>
-        </div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="timeline-date">Jul 2025 – Sep 2025</span>
-            <h4>Exchange Research Intern</h4>
-            <p class="timeline-sub">University of Chemistry & Technology (UCT Prague), Czech Republic</p>
-            <p>Developed spray-dried microparticles targeting E. coli biofilms; formulated biomaterial systems.</p>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-date">June 2023</span>
-            <h4>Microbial Techniques Trainee</h4>
-            <p class="timeline-sub">Azyme Biotech, Bangalore</p>
-            <p>Clinical microbiology isolation and biochemical verification assays.</p>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-date">May 2022</span>
-            <h4>Regenerative Medicine Trainee</h4>
-            <p class="timeline-sub">Nichi-In Centre for Regenerative Medicine, Chennai</p>
-            <p>Practical cleanroom operations and Class III Biosafety Cabinet handling.</p>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-header">
-          <span class="eyebrow">Academic Background</span>
-          <h2>Education</h2>
-        </div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="timeline-date">2024 – 2026</span>
-            <h4>M.Tech in Biotechnology</h4>
-            <p class="timeline-sub">Karunya Institute of Technology and Sciences</p>
-            <p>Rank Holder · 85.3% First-Class Distinction</p>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-date">2020 – 2024</span>
-            <h4>B.Tech in Biotechnology</h4>
-            <p class="timeline-sub">Karunya Institute of Technology and Sciences</p>
-            <p>84.6% First-Class Distinction</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PUBLICATIONS & HONORS -->
-  <section class="section">
-    <div class="two-col-grid">
-      <div>
-        <div class="section-header">
-          <span class="eyebrow">Dissemination</span>
-          <h2>Publications & Preprints</h2>
-        </div>
-        <div class="pub-card">
-          <span class="badge">Peer-Reviewed</span>
-          <p><strong>Kanimozhi D, Mathew J, Antu AR, Jasmine Steffi A, Arya K.</strong> An Exploratory In Silico Screening of Potentially Deleterious SNPs in the Human CDH1 Gene. <em>Int. J. Drug Deliv. Technol.</em> (2026).</p>
-        </div>
-        <div class="pub-card">
-          <span class="badge">Preprint</span>
-          <p><strong>Das S, Dubey A, Laney K, Kompala J, Jasmine Steffi A, et al.</strong> Emodin as a Multi-Target Modulator of Tumor Angiogenesis. <em>Cambridge Open Engage</em> (2026).</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-header">
-          <span class="eyebrow">Honors</span>
-          <h2>Awards & Fellowships</h2>
-        </div>
-        <ul class="styled-list">
-          <li><strong>UGC National Scholarship for Postgraduate Studies (NSPG)</strong> (2024–2026)</li>
-          <li><strong>IAESTE International Fellowship Award</strong> (Prague, 2025)</li>
-          <li><strong>GATE Biotechnology Qualified</strong> (2025)</li>
-          <li><strong>IIT Madras Molecular Biology Training</strong> — Shortlisted Candidate (2026)</li>
-          <li><strong>Karunya Merit Scholarship</strong> (2020–2024)</li>
+        <div class="item-sub">Laboratory of Biomimetic Engineering, University of Chemistry and Technology (UCT Prague), Czech Republic</div>
+        <ul class="item-list">
+          <li>Developed spray-dried microparticles targeting <em>E. coli</em> biofilms[cite: 1].</li>
+          <li>Gained extensive wet-lab experience in biomaterial-based delivery systems and formulation characterization[cite: 1].</li>
         </ul>
       </div>
-    </div>
-  </section>
 
-  <!-- IMMUNOLOGY SCI-FI GAME -->
-  <section class="section game-container-section">
-    <div class="game-wrapper">
-      <div class="game-header">
-        <div>
-          <span class="scifi-badge">SYSTEM DIAGNOSTIC: READY</span>
-          <h3 class="scifi-title">CAR-T IMMUNO-DEFENSE</h3>
-          <p class="scifi-sub">Eliminate tumor microenvironment threats. Use <strong>[W/S]</strong> or <strong>[↑/↓]</strong> to steer, <strong>[Spacebar]</strong> to fire Perforin/Granzyme Blasts.</p>
+      <div class="item-card">
+        <div class="item-header">
+          <span class="item-role">Laboratory Trainee</span>
+          <span class="item-time">May 2022 – Jun 2023</span>
         </div>
-        <div class="scoreboard">
-          <div class="score-item">SCORE <span id="game-score">00000</span></div>
-          <div class="score-item">HIGH <span id="game-high">00000</span></div>
-        </div>
+        <div class="item-sub">Specialized Technical Training Programs</div>
+        <ul class="item-list">
+          <li><strong>Azyme Biotech, Bangalore (June 2023):</strong> Isolation, microbial culture, and biochemical identification of clinically important microorganisms[cite: 1].</li>
+          <li><strong>Biozone, Chennai (June 2022):</strong> Genomic DNA extraction from <em>E. coli</em> and RT-qPCR/PCR primer design workflows[cite: 1].</li>
+          <li><strong>Nichi-In Centre for Regenerative Medicine, Chennai (May 2022):</strong> Class III Biosafety Cabinet operations, regenerative cell culture, and strict aseptic protocol management[cite: 1].</li>
+        </ul>
       </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <h2 class="section-title">Education</h2>
+      <div class="item-card">
+        <div class="item-header">
+          <span class="item-role">Master of Technology (M.Tech) in Biotechnology</span>
+          <span class="item-time">2024 – 2026</span>
+        </div>
+        <div class="item-sub">Karunya Institute of Technology and Sciences — 85.3% (Rank Holder, First-Class Distinction)</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">
+          <strong>Thesis:</strong> Biosynthesis of nanoparticles, Functional Characterization, and Evaluation of Immunomodulatory and Anti-Inflammatory Responses in Mammalian Macrophage Models[cite: 1].<br>
+          <strong>Focus:</strong> Molecular Immunology, Cancer Biology, Advanced Cell Culture Techniques[cite: 1].
+        </p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-header">
+          <span class="item-role">Bachelor of Technology (B.Tech) in Biotechnology</span>
+          <span class="item-time">2020 – 2024</span>
+        </div>
+        <div class="item-sub">Karunya Institute of Technology and Sciences — 84.60% (First-Class Distinction)</div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2 class="section-title">Key Research Projects</h2>
       
-      <div class="canvas-holder">
-        <canvas id="sciFiGameCanvas" width="760" height="260"></canvas>
-        <div id="game-overlay" class="overlay">
-          <h2 id="overlay-msg">CAR-T RECEPTOR ENGAGED</h2>
-          <button id="start-btn" onclick="startGame()">INITIATE CYTOLYSIS</button>
+      <div class="item-card">
+        <div class="item-role">Immunomodulatory & Anti-Inflammatory Characterization of Biosynthesized Nanoparticles</div>
+        <p style="font-size: 0.92rem; margin-top: 8px;">
+          Evaluated therapeutic protection and anti-inflammatory properties of biosynthesized formulations in RAW 264.7 macrophage models[cite: 1]. Measured quantitative cellular viability via MTT/Trypan Blue and collaborated on GC-MS metabolite profiling with SITRA to decipher active components[cite: 1].
+        </p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-role">Non-Canonical Functions of Telomerase in Mitochondria</div>
+        <p style="font-size: 0.92rem; margin-top: 8px;">
+          Investigated extra-telomeric mechanisms of TERT in mitochondrial maintenance and cancer survival[cite: 1]. Monitored mitochondrial stress response and mitophagy induction utilizing mitoKeima assays in human U-2 OS osteosarcoma models[cite: 1].
+        </p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-role">Alliin-Alliinase Microparticles Against Bacterial Biofilms</div>
+        <p style="font-size: 0.92rem; margin-top: 8px;">
+          Formulated microencapsulated systems generating sustained allicin to target <em>Escherichia coli</em> biofilms[cite: 1]. Quantified treatment inhibition kinetics and antibiofilm efficiency[cite: 1].
+        </p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-role">Marine Waste-Derived Collagen Scaffold for 3D Cell Culture</div>
+        <p style="font-size: 0.92rem; margin-top: 8px;">
+          Extracted marine biomaterials to synthesize biocompatible collagen matrices[cite: 1]. Carried out physicochemical analysis and biocompatibility testing for mammalian cell adhesion and growth[cite: 1].
+        </p>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+      <h2 class="section-title">Publications & Manuscripts</h2>
+      
+      <div class="pub-entry">
+        <div class="pub-title">An Exploratory In Silico Screening of Potentially Deleterious Single Nucleotide Polymorphisms in the Human CDH1 Gene</div>
+        <div class="pub-meta">Kanimozhi D, Mathew J, Antu AR, <strong>Jasmine Steffi A</strong>, Arya K. <em>International Journal of Drug Delivery Technology</em> (2026). DOI: 10.25258/ijddt.16.35s.85[cite: 1]</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">Emodin as a Multi-Target Modulator of Tumor Angiogenesis: Mechanisms, Microenvironment, and Therapeutic Potential</div>
+        <div class="pub-meta">Das S, Dubey A, Laney K, Kompala J, <strong>Jasmine Steffi A</strong>, Nayar R, et al. <em>Cambridge Open Engage</em> (Preprint, 2026). DOI: 10.33774/coe-2026-9zbzx[cite: 1]</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title"><em>Xenorhabdus stockiae</em>-Mediated Green Synthesis of Silver Nanoparticles for Anti-Inflammatory Activity</div>
+        <div class="pub-meta"><strong>Jasmine Steffi A</strong>, Mathew J, Samuel M. Submitted to <em>Journal of Pure and Applied Microbiology</em>[cite: 1].</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">Biorefining of Micro- and Macroalgae for Sustainable Biofuels and Resource Valorization</div>
+        <div class="pub-meta"><strong>Jasmine Steffi A</strong>, Jibu Thomas. Revised draft submitted to <em>Environmental Science and Pollution Research</em>[cite: 1].</div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2 class="section-title">Core Competencies</h2>
+      
+      <div class="skill-category">
+        <div class="skill-title">Cell Culture & In Vitro Assays</div>
+        <div class="tags">
+          <span class="tag">Mammalian Cell Culture (RAW 264.7)</span>
+          <span class="tag">U-2 OS Cancer Line</span>
+          <span class="tag">Cryopreservation</span>
+          <span class="tag">MTT & Cytotoxicity Assays</span>
+          <span class="tag">Anti-Inflammatory Screening</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <footer>
-    <p>© 2026 Jasmine Steffi A · Engineered for GitHub Pages</p>
-  </footer>
+      <div class="skill-category">
+        <div class="skill-title">Molecular Biology & Analytical Techniques</div>
+        <div class="tags">
+          <span class="tag">RNA/gDNA Extraction</span>
+          <span class="tag">PCR & RT-qPCR</span>
+          <span class="tag">SDS-PAGE & Western Blot</span>
+          <span class="tag">Bradford/BCA Assays</span>
+          <span class="tag">GC-MS</span>
+          <span class="tag">UV-Vis Spectrophotometry</span>
+          <span class="tag">DLS</span>
+          <span class="tag">FTIR</span>
+        </div>
+      </div>
 
-  <script src="game.js"></script>
-  <script>
-    function toggleCard(header) {
-      const card = header.parentElement;
-      card.classList.toggle('active');
-      const btn = header.querySelector('.expand-btn');
-      btn.innerText = card.classList.contains('active') ? 'Collapse' : 'Expand';
-    }
-  </script>
+      <div class="skill-category">
+        <div class="skill-title">Computational & Modeling Tools</div>
+        <div class="tags">
+          <span class="tag">NCBI BLAST</span>
+          <span class="tag">GraphPad Prism</span>
+          <span class="tag">BioRender</span>
+          <span class="tag">Pathway Mapping</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+      <h2 class="section-title">Gallery & Academic Highlights</h2>
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <img src="wetlab_bench.jpeg" alt="Cell Culture Wet Lab Bench">
+          <div class="gallery-caption">Cell Culture & Laminar Flow Workstation</div>
+        </div>
+        <div class="gallery-card">
+          <img src="cscr_symposium.jpeg" alt="Cell and Gene Therapy Symposium">
+          <div class="gallery-caption">10th Annual Cell & Gene Therapy Symposium (CSCR/inStem)</div>
+        </div>
+        <div class="gallery-card">
+          <img src="banner.jpeg" alt="Stem Cell Characterization Workshop">
+          <div class="gallery-caption">Flow Cytometry & Stem Cell Workshop</div>
+        </div>
+        <div class="gallery-card">
+          <img src="Prague.jpeg" alt="UCT Prague Internship">
+          <div class="gallery-caption">IAESTE Research Fellowship, Prague</div>
+        </div>
+        <div class="gallery-card">
+          <img src="cmc_night.jpeg" alt="Centre for Stem Cell Research CMC Vellore">
+          <div class="gallery-caption">Centre for Stem Cell Research (CMC Vellore)</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
 </body>
 </html>
